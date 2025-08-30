@@ -6,8 +6,20 @@ import plotly.graph_objects as go
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 from datetime import datetime, timedelta
 
-st.title("📊 Credit Scoring Dashboard")
-st.markdown("### Comprehensive Analytics and Insights")
+# Custom CSS for golden yellow styling
+st.markdown("""
+<style>
+    .golden-header {
+        color: #FFD700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        border-bottom: 3px solid #FFD700;
+        padding-bottom: 10px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown('<h1 class="golden-header">📊 Credit Scoring Dashboard</h1>', unsafe_allow_html=True)
+st.markdown('<h3 style="color: #FFD700;">Comprehensive Analytics and Insights</h3>', unsafe_allow_html=True)
 
 # Check if models are trained
 if not hasattr(st.session_state, 'model') or not st.session_state.model.models:

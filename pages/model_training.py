@@ -8,8 +8,20 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score, roc_curve, confusion_matrix
 import xgboost as xgb
 
-st.title("🤖 Model Training & Evaluation")
-st.markdown("### Train and Evaluate Credit Scoring Models")
+# Custom CSS for golden yellow styling
+st.markdown("""
+<style>
+    .golden-header {
+        color: #FFD700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        border-bottom: 3px solid #FFD700;
+        padding-bottom: 10px;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown('<h1 class="golden-header">🤖 Model Training & Evaluation</h1>', unsafe_allow_html=True)
+st.markdown('<h3 style="color: #FFD700;">Train and Evaluate Credit Scoring Models</h3>', unsafe_allow_html=True)
 
 # Model training controls
 col1, col2 = st.columns([2, 1])

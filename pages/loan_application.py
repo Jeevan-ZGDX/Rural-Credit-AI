@@ -4,12 +4,43 @@ import numpy as np
 import plotly.graph_objects as go
 from utils.explanations import explain_prediction
 
-st.title("📋 Loan Application Form")
-st.markdown("### Apply for Rural Small Business Credit")
+# Custom CSS for golden yellow styling
+st.markdown("""
+<style>
+    .golden-header {
+        color: #FFD700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        border-bottom: 3px solid #FFD700;
+        padding-bottom: 10px;
+    }
+    
+    .application-section {
+        background: linear-gradient(135deg, #000000, #008080);
+        border-left: 5px solid #FFD700;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(255, 215, 0, 0.2);
+    }
+    
+    .success-box {
+        background: linear-gradient(45deg, #008080, #FFD700);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.3);
+        text-align: center;
+        color: white;
+        font-weight: bold;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown('<h1 class="golden-header">📋 Loan Application Form</h1>', unsafe_allow_html=True)
+st.markdown('<h3 style="color: #FFD700;">Apply for Rural Small Business Credit</h3>', unsafe_allow_html=True)
 
 # Create application form
 with st.form("loan_application_form"):
-    st.subheader("Personal Information")
+    st.markdown('<h4 class="golden-header">👤 Personal Information</h4>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     
@@ -26,7 +57,7 @@ with st.form("loan_application_form"):
                                    ["Agriculture", "Retail", "Services", "Manufacturing", "Trading"])
         business_age = st.number_input("Business Age (years)", min_value=0.1, max_value=50.0, value=2.0)
     
-    st.subheader("Financial Information")
+    st.markdown('<h4 class="golden-header">💰 Financial Information</h4>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     
@@ -40,7 +71,7 @@ with st.form("loan_application_form"):
                                   ["Business Expansion", "Equipment Purchase", "Working Capital", 
                                    "Inventory", "Other"])
     
-    st.subheader("Alternative Data Assessment")
+    st.markdown('<h4 class="golden-header">📱 Alternative Data Assessment</h4>', unsafe_allow_html=True)
     st.markdown("*These scores are automatically calculated based on your mobile and payment history*")
     
     col1, col2 = st.columns(2)
@@ -211,24 +242,29 @@ with st.form("loan_application_form"):
                     mode="gauge+number+delta",
                     value=prediction['credit_score'],
                     domain={'x': [0, 1], 'y': [0, 1]},
-                    title={'text': "Credit Score"},
+                    title={'text': "Credit Score", 'font': {'color': '#FFD700', 'size': 24}},
                     delta={'reference': 650},
                     gauge={
-                        'axis': {'range': [300, 850]},
-                        'bar': {'color': "darkblue"},
+                        'axis': {'range': [300, 850], 'tickcolor': '#FFD700'},
+                        'bar': {'color': "#FFD700"},
                         'steps': [
-                            {'range': [300, 550], 'color': "lightgray"},
-                            {'range': [550, 650], 'color': "yellow"},
-                            {'range': [650, 750], 'color': "lightgreen"},
-                            {'range': [750, 850], 'color': "green"}
+                            {'range': [300, 550], 'color': "rgba(128,128,128,0.3)"},
+                            {'range': [550, 650], 'color': "rgba(255,165,0,0.3)"},
+                            {'range': [650, 750], 'color': "rgba(0,128,128,0.3)"},
+                            {'range': [750, 850], 'color': "rgba(255,215,0,0.3)"}
                         ],
                         'threshold': {
-                            'line': {'color': "red", 'width': 4},
+                            'line': {'color': "#FFD700", 'width': 4},
                             'thickness': 0.75,
                             'value': 650
                         }
                     }
                 ))
+                fig.update_layout(
+                    paper_bgcolor='rgba(0,0,0,0)',
+                    plot_bgcolor='rgba(0,0,0,0)',
+                    font_color='white'
+                )
                 
                 fig.update_layout(height=400)
                 st.plotly_chart(fig, use_container_width=True)

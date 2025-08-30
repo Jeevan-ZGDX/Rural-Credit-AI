@@ -16,6 +16,53 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Custom CSS for more golden yellow highlights
+st.markdown("""
+<style>
+    .metric-card {
+        background: linear-gradient(45deg, #008080, #FFD700);
+        padding: 1rem;
+        border-radius: 10px;
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(255, 215, 0, 0.3);
+    }
+    
+    .golden-header {
+        color: #FFD700;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        border-bottom: 3px solid #FFD700;
+        padding-bottom: 10px;
+    }
+    
+    .highlight-box {
+        background: linear-gradient(135deg, #000000, #008080);
+        border-left: 5px solid #FFD700;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(255, 215, 0, 0.2);
+    }
+    
+    .golden-button {
+        background: linear-gradient(45deg, #FFD700, #FFA500);
+        color: black;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(255, 215, 0, 0.4);
+    }
+    
+    .sidebar .metric-container {
+        background: linear-gradient(135deg, #008080, #FFD700);
+        border-radius: 8px;
+        padding: 8px;
+        margin: 5px 0;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 # Initialize session state
 if 'model' not in st.session_state:
     st.session_state.model = CreditScoringModel()
@@ -33,13 +80,15 @@ page = st.sidebar.selectbox(
 
 # Home Page
 if page == "Home":
-    st.title("Rural Small Business Credit Scoring System")
+    st.markdown('<h1 class="golden-header">🏦 Rural Small Business Credit Scoring System</h1>', unsafe_allow_html=True)
     st.markdown("""
-    ### 🌾 Empowering Rural Entrepreneurs with AI-Driven Credit Assessment
+    <div class="highlight-box">
+    <h3>🌾 Empowering Rural Entrepreneurs with AI-Driven Credit Assessment</h3>
     
     This system leverages non-traditional data sources to assess creditworthiness for rural small businesses
     that often lack formal credit history.
-    """)
+    </div>
+    """, unsafe_allow_html=True)
     
     col1, col2, col3 = st.columns(3)
     
@@ -55,43 +104,59 @@ if page == "Home":
     st.markdown("---")
     
     # Key Features
-    st.subheader("🚀 Key Features")
+    st.markdown('<h3 class="golden-header">🚀 Key Features</h3>', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2)
     
     with col1:
         st.markdown("""
-        **📊 Alternative Data Sources:**
-        - Mobile phone usage patterns
-        - Mobile money transaction history
-        - Utility payment consistency
-        - Community cooperative records
-        """)
+        <div class="highlight-box">
+        <strong style="color: #FFD700;">📊 Alternative Data Sources:</strong>
+        <ul style="color: white;">
+        <li>Mobile phone usage patterns</li>
+        <li>Mobile money transaction history</li>
+        <li>Utility payment consistency</li>
+        <li>Community cooperative records</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
         
         st.markdown("""
-        **🧠 Machine Learning Models:**
-        - Logistic Regression for baseline scoring
-        - Random Forest for feature importance
-        - XGBoost for advanced predictions
-        """)
+        <div class="highlight-box">
+        <strong style="color: #FFD700;">🧠 Machine Learning Models:</strong>
+        <ul style="color: white;">
+        <li>Logistic Regression for baseline scoring</li>
+        <li>Random Forest for feature importance</li>
+        <li>XGBoost for advanced predictions</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
     
     with col2:
         st.markdown("""
-        **🔍 Model Explainability:**
-        - SHAP values for feature impact
-        - Individual prediction explanations
-        - Global feature importance
-        """)
+        <div class="highlight-box">
+        <strong style="color: #FFD700;">🔍 Model Explainability:</strong>
+        <ul style="color: white;">
+        <li>SHAP values for feature impact</li>
+        <li>Individual prediction explanations</li>
+        <li>Global feature importance</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
         
         st.markdown("""
-        **⚖️ Fairness & Ethics:**
-        - Bias detection and mitigation
-        - Demographic parity analysis
-        - Equal opportunity assessment
-        """)
+        <div class="highlight-box">
+        <strong style="color: #FFD700;">⚖️ Fairness & Ethics:</strong>
+        <ul style="color: white;">
+        <li>Bias detection and mitigation</li>
+        <li>Demographic parity analysis</li>
+        <li>Equal opportunity assessment</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
     
     # Sample data overview
-    st.subheader("📈 Sample Data Overview")
+    st.markdown('<h3 class="golden-header">📈 Sample Data Overview</h3>', unsafe_allow_html=True)
     
     # Generate sample data for display
     sample_data = st.session_state.data_generator.generate_sample_data(100)
@@ -101,14 +166,28 @@ if page == "Home":
     with col1:
         st.markdown("**Credit Score Distribution**")
         fig = px.histogram(sample_data, x='credit_score', nbins=20, 
-                          title="Credit Score Distribution")
+                          title="Credit Score Distribution",
+                          color_discrete_sequence=['#FFD700'])
+        fig.update_layout(
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            font_color='white',
+            title_font_color='#FFD700'
+        )
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
         st.markdown("**Approval Rate by Region**")
         approval_by_region = sample_data.groupby('region')['loan_approved'].mean().reset_index()
         fig = px.bar(approval_by_region, x='region', y='loan_approved',
-                    title="Loan Approval Rate by Region")
+                    title="Loan Approval Rate by Region",
+                    color_discrete_sequence=['#FFD700'])
+        fig.update_layout(
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)',
+            font_color='white',
+            title_font_color='#FFD700'
+        )
         st.plotly_chart(fig, use_container_width=True)
 
 elif page == "Loan Application":
