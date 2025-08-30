@@ -10,7 +10,7 @@ st.title("📊 Credit Scoring Dashboard")
 st.markdown("### Comprehensive Analytics and Insights")
 
 # Check if models are trained
-if not st.session_state.model.models:
+if not hasattr(st.session_state, 'model') or not st.session_state.model.models:
     st.warning("⚠️ No trained models found. Please train models first in the Model Training page.")
     
     # Quick train button
@@ -192,7 +192,7 @@ else:
     # Model Performance Dashboard
     st.subheader("🤖 Model Performance Dashboard")
     
-    if st.session_state.model.models:
+    if hasattr(st.session_state, 'model') and st.session_state.model.models:
         # Generate predictions for dashboard data
         sample_for_prediction = dashboard_data.sample(500)  # Sample for performance
         

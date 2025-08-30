@@ -316,7 +316,7 @@ if st.button("🚀 Train Models", type="primary"):
 st.sidebar.markdown("---")
 st.sidebar.subheader("🤖 Model Status")
 
-if st.session_state.model.models:
+if hasattr(st.session_state, 'model') and st.session_state.model.models:
     st.sidebar.success(f"✅ {len(st.session_state.model.models)} models trained")
     for model_name in st.session_state.model.models.keys():
         st.sidebar.write(f"• {model_name}")
